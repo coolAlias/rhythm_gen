@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>Random Rhythm Generator</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="robots" content="index, follow">
+	</head>
+	<body style="padding: 5px;">
+		<h1 style="margin-bottom: 5px; margin-top: 5px;">Random Rhythm Generator</h1>
+		<p>Choose your options, then click 'Generate' to get a rhythm!</p>
+		<form id="form" style="padding-bottom: 8px;" method="get" action="#" accept-charset="utf-8">
+			<div style="padding-bottom: 8px;">
+				<label for="num_bars" style="display: block; font-weight: bold; padding-bottom: 2px;" >No. of Bars</label>
+				<input id="num_bars" style="display: block;" type="number" name="num_bars" value="1" min="1" max="5" />
+			</div>
+			<div style="padding-bottom: 8px;">
+				<label for="num_beats" style="display: block; font-weight: bold; padding-bottom: 2px;" >No. of Beats</label>
+				<input id="num_beats" style="display: block;" type="number" name="num_beats" value="4" min="1" max="9" />
+			</div>
+			<div style="padding-bottom: 8px;">
+				<label for="num_notes" style="display: block; font-weight: bold; padding-bottom: 2px;" >Notes per Beat</label>
+				<input id="num_notes" style="display: block;" type="number" name="num_notes" value="2" min="1" max="8" />
+			</div>
+			<div style="padding-bottom: 8px;">
+				<label for="num_skips" style="display: block; font-weight: bold; padding-bottom: 2px;" >Notes to Skip</label>
+				<input id="num_skips" style="display: block;" type="number" name="num_skips" value="3" min="0" />
+			</div>
+			<button type="submit">Generate</button>
+		</form>
+		<h3 style="margin-bottom: 5px; margin-top: 5px;"><span id="copy_link" for="output" style="display: inline-block; height: 16px; width: 16px; cursor: pointer;" title="Click to Copy the rhythm text to your clipboard"><svg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' viewBox='0 0 64 64' enable-background='new 0 0 64 64' xml:space='preserve' fill='black'><path d='M53.9791489,9.1429005H50.010849c-0.0826988,0-0.1562004,0.0283995-0.2331009,0.0469999V5.0228 C49.7777481,2.253,47.4731483,0,44.6398468,0h-34.422596C7.3839517,0,5.0793519,2.253,5.0793519,5.0228v46.8432999 c0,2.7697983,2.3045998,5.0228004,5.1378999,5.0228004h6.0367002v2.2678986C16.253952,61.8274002,18.4702511,64,21.1954517,64 h32.783699c2.7252007,0,4.9414978-2.1725998,4.9414978-4.8432007V13.9861002 C58.9206467,11.3155003,56.7043495,9.1429005,53.9791489,9.1429005z M7.1110516,51.8661003V5.0228 c0-1.6487999,1.3938999-2.9909999,3.1062002-2.9909999h34.422596c1.7123032,0,3.1062012,1.3422,3.1062012,2.9909999v46.8432999 c0,1.6487999-1.393898,2.9911003-3.1062012,2.9911003h-34.422596C8.5049515,54.8572006,7.1110516,53.5149002,7.1110516,51.8661003z  M56.8888474,59.1567993c0,1.550602-1.3055,2.8115005-2.9096985,2.8115005h-32.783699 c-1.6042004,0-2.9097996-1.2608986-2.9097996-2.8115005v-2.2678986h26.3541946 c2.8333015,0,5.1379013-2.2530022,5.1379013-5.0228004V11.1275997c0.0769005,0.0186005,0.1504021,0.0469999,0.2331009,0.0469999 h3.9682999c1.6041985,0,2.9096985,1.2609005,2.9096985,2.8115005V59.1567993z' /><path d='M38.6031494,13.2063999H16.253952c-0.5615005,0-1.0159006,0.4542999-1.0159006,1.0158005 c0,0.5615997,0.4544001,1.0158997,1.0159006,1.0158997h22.3491974c0.5615005,0,1.0158997-0.4542999,1.0158997-1.0158997 C39.6190491,13.6606998,39.16465,13.2063999,38.6031494,13.2063999z' /><path d='M38.6031494,21.3334007H16.253952c-0.5615005,0-1.0159006,0.4542999-1.0159006,1.0157986 c0,0.5615005,0.4544001,1.0159016,1.0159006,1.0159016h22.3491974c0.5615005,0,1.0158997-0.454401,1.0158997-1.0159016 C39.6190491,21.7877007,39.16465,21.3334007,38.6031494,21.3334007z' /><path d='M38.6031494,29.4603004H16.253952c-0.5615005,0-1.0159006,0.4543991-1.0159006,1.0158997 s0.4544001,1.0158997,1.0159006,1.0158997h22.3491974c0.5615005,0,1.0158997-0.4543991,1.0158997-1.0158997 S39.16465,29.4603004,38.6031494,29.4603004z' /><path d='M28.4444485,37.5872993H16.253952c-0.5615005,0-1.0159006,0.4543991-1.0159006,1.0158997 s0.4544001,1.0158997,1.0159006,1.0158997h12.1904964c0.5615025,0,1.0158005-0.4543991,1.0158005-1.0158997 S29.0059509,37.5872993,28.4444485,37.5872993z' /></span>&nbsp;Rhythm</h3>
+		<span id="copy_notice" style="display: none;">Copied!</span>
+		<div id="output" style="padding: 5px; font-family: monospace; font-size: large;"></div>
+	</body>
+</html>
+<script>
+
+class Rhythm
+{
+	constructor(num_bars, num_beats, num_notes, num_skips, skip_first = false)
+	{
+		this.num_bars = num_bars;
+		this.num_beats = num_beats;
+		this.num_notes = num_notes;
+		this.pattern = getPattern(num_notes)?.substring(1);
+		this.generate(num_skips, skip_first);
+	}
+
+	generate(num_skips, skip_first = false)
+	{
+		const notes_per_bar = this.num_beats * this.num_notes;
+		const size = this.num_bars * notes_per_bar;
+		this.rhythm = Array(size).fill(true, 0);
+		const max = this.rhythm.length - 1;
+		const min = (skip_first ? 0 : 1);
+		const max_skips = (skip_first ? max : this.rhythm.length - this.num_bars);
+		if (num_skips > max_skips) {
+			num_skips = max_skips;
+		}
+		while (num_skips > 0) {
+			const i = getRandomIntInclusive(min, max);
+			if (this.rhythm[i] && (skip_first || i % notes_per_bar !== 0)) {
+				this.rhythm[i] = false;
+				num_skips = num_skips - 1;
+			}
+		}
+	}
+
+	getLines()
+	{
+		let bar_pattern = '';
+		for (let i = 1; i <= this.num_beats; i++) {
+			bar_pattern += '' + i + this.pattern;
+		}
+		let full_rhythm = '';
+		for (let i = 0; i < this.rhythm.length; i++) {
+			if (this.rhythm[i]) {
+				full_rhythm += (i % 2 === 0 ? 'D' : 'U');
+			} else {
+				full_rhythm += ' ';
+			}
+		}
+		const bar_len = this.num_beats * this.num_notes;
+		let lines = [];
+		for (let i = 0; i < this.num_bars; i++) {
+			let rhythm_line = full_rhythm.substring(0, bar_len).replaceAll(' ', '&nbsp');
+			lines.push(rhythm_line);
+			lines.push(bar_pattern);
+			full_rhythm = full_rhythm.substring(bar_len);
+			if (full_rhythm.length > 0) {
+				lines.push('');
+			}
+		}
+		return lines;
+	}
+}
+
+function getRandomIntInclusive(min, max) {
+	min = Math.ceil(min);
+	max = Math.floor(max);
+	return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function getRhythm(data)
+{
+	const bars  = +data.get('num_bars');
+	const beats = +data.get('num_beats');
+	const notes = +data.get('num_notes');
+	const skips = +data.get('num_skips');
+	// TODO Add option to allow skipping first note of each beat
+	const skip_first = false;
+	if (isNaN(bars) || bars < 1 || bars > 5) {
+		return '<span style="color: red">Number of bars must be a number between 1 and 5.</span>';
+	}
+	if (isNaN(beats) || beats < 1 || beats > 9) {
+		return '<span style="color: red">Number of beats must be a number between 1 and 9.</span>';
+	}
+	if (isNaN(notes) || notes < 1 || notes > 8) {
+		return '<span style="color: red">Notes per beat must be a number between 1 and 8.</span>';
+	}
+	const max_skips = (skip_first ? (bars * beats * notes) - 1 : (bars * beats * notes) - bars);
+	if (isNaN(skips) || skips < 0 || skips > max_skips) {
+		return '<span style="color: red">Notes to skip must be a number between 0 and the total number of notes.</span>';
+	}
+	const rhythm = new Rhythm(bars, beats, notes, skips, skip_first);
+	const lines = rhythm.getLines();
+	let output = lines.reduce((s, line) => s + '<br>' + line);
+	return output;
+}
+
+function getPattern(n)
+{
+	const patterns = [
+		'n',
+		'n+',
+		'n+a',
+		'ne+a',
+		'nabcd',
+		'nea+ea',
+		'nabcdef',
+		'ne+a&e+a',
+	];
+	let i = n - 1;
+	if (i > -1 && i < patterns.length) {
+		return patterns[i];
+	}
+	return null;
+}
+
+function getRandomIntInclusive(min, max)
+{
+	min = Math.ceil(min);
+	max = Math.floor(max);
+	return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+window.addEventListener("load", function(event)
+{
+	document.getElementById('form')?.addEventListener('submit', function(e) {
+		e.preventDefault();
+		const div = document.getElementById('output');
+		const rhythm = getRhythm(new FormData(e.target));
+		if (div && rhythm) {
+			div.innerHTML = rhythm;
+		}
+	});
+	document.getElementById('copy_link')?.addEventListener('click', function(e) {
+		let output = document.getElementById('output')?.innerHTML;
+		if (!output) {
+			return;
+		}
+		output = output.replaceAll("<br>", "\n").replaceAll("&nbsp;", " ");
+		navigator.clipboard.writeText(output).then(function() {
+			const notice = document.getElementById('copy_notice');
+			if (notice) {
+				notice.style.display = 'block';
+				setTimeout(() => notice.style.display = 'none', 2000);
+			}
+		}, function(err) {
+			console.error('Failed to copy text: ', err);
+		});
+	});
+});
+
+</script>
