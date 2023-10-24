@@ -30,7 +30,8 @@
 		</form>
 		<h3 style="margin-bottom: 5px; margin-top: 5px;"><span id="copy_link" for="output" style="display: inline-block; height: 16px; width: 16px; cursor: pointer;" title="Click to Copy the rhythm text to your clipboard"><svg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' viewBox='0 0 64 64' enable-background='new 0 0 64 64' xml:space='preserve' fill='black'><path d='M53.9791489,9.1429005H50.010849c-0.0826988,0-0.1562004,0.0283995-0.2331009,0.0469999V5.0228 C49.7777481,2.253,47.4731483,0,44.6398468,0h-34.422596C7.3839517,0,5.0793519,2.253,5.0793519,5.0228v46.8432999 c0,2.7697983,2.3045998,5.0228004,5.1378999,5.0228004h6.0367002v2.2678986C16.253952,61.8274002,18.4702511,64,21.1954517,64 h32.783699c2.7252007,0,4.9414978-2.1725998,4.9414978-4.8432007V13.9861002 C58.9206467,11.3155003,56.7043495,9.1429005,53.9791489,9.1429005z M7.1110516,51.8661003V5.0228 c0-1.6487999,1.3938999-2.9909999,3.1062002-2.9909999h34.422596c1.7123032,0,3.1062012,1.3422,3.1062012,2.9909999v46.8432999 c0,1.6487999-1.393898,2.9911003-3.1062012,2.9911003h-34.422596C8.5049515,54.8572006,7.1110516,53.5149002,7.1110516,51.8661003z  M56.8888474,59.1567993c0,1.550602-1.3055,2.8115005-2.9096985,2.8115005h-32.783699 c-1.6042004,0-2.9097996-1.2608986-2.9097996-2.8115005v-2.2678986h26.3541946 c2.8333015,0,5.1379013-2.2530022,5.1379013-5.0228004V11.1275997c0.0769005,0.0186005,0.1504021,0.0469999,0.2331009,0.0469999 h3.9682999c1.6041985,0,2.9096985,1.2609005,2.9096985,2.8115005V59.1567993z' /><path d='M38.6031494,13.2063999H16.253952c-0.5615005,0-1.0159006,0.4542999-1.0159006,1.0158005 c0,0.5615997,0.4544001,1.0158997,1.0159006,1.0158997h22.3491974c0.5615005,0,1.0158997-0.4542999,1.0158997-1.0158997 C39.6190491,13.6606998,39.16465,13.2063999,38.6031494,13.2063999z' /><path d='M38.6031494,21.3334007H16.253952c-0.5615005,0-1.0159006,0.4542999-1.0159006,1.0157986 c0,0.5615005,0.4544001,1.0159016,1.0159006,1.0159016h22.3491974c0.5615005,0,1.0158997-0.454401,1.0158997-1.0159016 C39.6190491,21.7877007,39.16465,21.3334007,38.6031494,21.3334007z' /><path d='M38.6031494,29.4603004H16.253952c-0.5615005,0-1.0159006,0.4543991-1.0159006,1.0158997 s0.4544001,1.0158997,1.0159006,1.0158997h22.3491974c0.5615005,0,1.0158997-0.4543991,1.0158997-1.0158997 S39.16465,29.4603004,38.6031494,29.4603004z' /><path d='M28.4444485,37.5872993H16.253952c-0.5615005,0-1.0159006,0.4543991-1.0159006,1.0158997 s0.4544001,1.0158997,1.0159006,1.0158997h12.1904964c0.5615025,0,1.0158005-0.4543991,1.0158005-1.0158997 S29.0059509,37.5872993,28.4444485,37.5872993z' /></span>&nbsp;Rhythm</h3>
 		<span id="copy_notice" style="display: none;">Copied!</span>
-		<div id="output" style="padding: 5px; font-family: monospace; font-size: large;"></div>
+		<div id="output" style="padding: 5px; font-family: monospace; font-size: large; white-space: break-spaces;"></div>
+		<p style="font-size: 0.9em;">Click above any note to toggle between D/U and empty!</p>
 	</body>
 </html>
 <script>
@@ -83,7 +84,7 @@ class Rhythm
 		const bar_len = this.num_beats * this.num_notes;
 		let lines = [];
 		for (let i = 0; i < this.num_bars; i++) {
-			let rhythm_line = full_rhythm.substring(0, bar_len).replaceAll(' ', '&nbsp');
+			let rhythm_line = full_rhythm.substring(0, bar_len);
 			lines.push(rhythm_line);
 			lines.push(bar_pattern);
 			full_rhythm = full_rhythm.substring(bar_len);
@@ -122,10 +123,7 @@ function getRhythm(data)
 	if (isNaN(skips) || skips < 0 || skips > max_skips) {
 		return '<span style="color: red">Notes to skip must be a number between 0 and the total number of notes.</span>';
 	}
-	const rhythm = new Rhythm(bars, beats, notes, skips, skip_first);
-	const lines = rhythm.getLines();
-	let output = lines.reduce((s, line) => s + '<br>' + line);
-	return output;
+	return new Rhythm(bars, beats, notes, skips, skip_first);
 }
 
 function getPattern(n)
@@ -154,13 +152,39 @@ function getRandomIntInclusive(min, max)
 	return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+function toggleNoteHeader(target)
+{
+	const n = target.innerHTML;
+	target.innerHTML = (n === 'D' ? 'U' : (n === 'U' ? ' ' : 'D'));
+}
+
 window.addEventListener("load", function(event)
 {
 	document.getElementById('form')?.addEventListener('submit', function(e) {
 		e.preventDefault();
 		const div = document.getElementById('output');
 		const rhythm = getRhythm(new FormData(e.target));
-		if (div && rhythm) {
+		if (div && rhythm instanceof Rhythm) {
+			div.innerHTML = '';
+			const lines = rhythm.getLines();
+			for (let i = 0; i < lines.length; i++) {
+				if (lines[i].length < 1) {
+					div.appendChild(document.createElement('br'));
+				} else if (lines[i][0] === '1') {
+					div.appendChild(document.createTextNode(lines[i]));
+					div.appendChild(document.createElement('br'));
+				} else {
+					for (let n = 0; n < lines[i].length; n++) {
+						let span = document.createElement('span');
+						span.style.cursor = 'pointer';
+						span.innerHTML = lines[i][n];
+						span.addEventListener('click', event => toggleNoteHeader(event.target));
+						div.appendChild(span);
+					}
+					div.appendChild(document.createElement('br'));
+				}
+			}
+		} else if (div && rhythm) {
 			div.innerHTML = rhythm;
 		}
 	});
@@ -169,7 +193,10 @@ window.addEventListener("load", function(event)
 		if (!output) {
 			return;
 		}
-		output = output.replaceAll("<br>", "\n").replaceAll("&nbsp;", " ");
+		output = output
+			.replaceAll("<span style=\"cursor: pointer;\">", "")
+			.replaceAll("</span>", "")
+			.replaceAll("<br>", "\n");
 		navigator.clipboard.writeText(output).then(function() {
 			const notice = document.getElementById('copy_notice');
 			if (notice) {

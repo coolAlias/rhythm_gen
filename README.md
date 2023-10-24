@@ -20,6 +20,8 @@ The application can run in any modern browser, no internet or local server requi
 
 Once you have the application running in your browser, use it just like you would any other web page.
 
+Note that you can click above any beat to toggle between D, U, and empty to change the rhythm pattern. If the notes are too close together to reliably click on, try zooming in.
+
 ### Options
 
 **Number of Bars** is the number of measures over which the rhythm will be played, most usually either 1 or 2. Max value is currently 5.
