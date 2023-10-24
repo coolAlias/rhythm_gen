@@ -6,15 +6,13 @@ A simple browser-based application for generating random rhythm patterns, intend
 
 The application can run in any modern browser, no internet or local server required.
 
-1. Download the /rhythm_gen/index.html file to somewhere on your computer.
+1. Download the `rhythm_gen.html` file to somewhere on your computer.
 
-2. Optionally rename it so you know what it is.
+2. Double-click it and your preferred browser should open it automatically. If not, right-click the file and select the "Open with" option in the context menu, then choose your preferred browser.
 
-3. Double-click it and your preferred browser should open it automatically. If not, right-click the file and select the "Open with" option in the context menu, then choose your preferred browser.
+3. You should now see the application running in your browser, just like any other web page, no interent required!
 
-4. You should now see the application running in your browser, just like any other web page, no interent required!
-
-5. Enjoy your rhythm practice!
+4. Enjoy your rhythm practice!
 
 ## How to Use
 
